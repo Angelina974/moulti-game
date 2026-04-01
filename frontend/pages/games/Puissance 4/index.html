@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Puissance 4</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../../assets/css/games/Puissance 4/css/styles.css">
+    <link rel="stylesheet" href="../../../assets/css/games/Puissance 4/css/gameBoard.css">
+    <link rel="stylesheet" href="../../../assets/css/games/Puissance 4/css/animations.css">
+
+    <!-- FONTS -->
+	<link href="https://fonts.googleapis.com/css2?family=Jersey+25&display=swap" rel="stylesheet">
+    
+    <!--  Scripts -->
+    <script src="model.js" defer></script>
+    <script src="view.js" defer></script>
+    <script src="gameLogic.js" defer></script>
+    <script src="controller.js" defer></script>
+
+    <!-- SOUNDTRACK -->
+    <audio id="coin-drop" src="../../../assets/audio/games/Puissance 4/soundtrack/coin_drop.mp3" preload="auto"></audio>
+    <audio id="winner-sound" src="../../../assets/audio/games/Puissance 4/soundtrack/winner_sound.wav" preload="auto"></audio>
+    
+</head>
+
+<body>
+
+    <div class="game-container">
+
+        <!-- Image of the logo -->
+        <img src="../../../assets/images/games/Puissance 4/img/logo.png" alt="Connect 4" class="logo">
+
+        <div id="gameBoard" class="gameBoard">
+
+            <!-- Gameboard -->
+            <div class="row" data-row="0">
+                <div class="cell" data-column="0"></div>
+                <div class="cell" data-column="1"></div>
+                <div class="cell" data-column="2"></div>
+                <div class="cell" data-column="3"></div>
+                <div class="cell" data-column="4"></div>
+                <div class="cell" data-column="5"></div>
+                <div class="cell" data-column="6"></div>
+            </div>
+
+            <div class="row" data-row="1">
+                <div class="cell" data-column="0"></div>
+                <div class="cell" data-column="1"></div>
+                <div class="cell" data-column="2"></div>
+                <div class="cell" data-column="3"></div>
+                <div class="cell" data-column="4"></div>
+                <div class="cell" data-column="5"></div>
+                <div class="cell" data-column="6"></div>
+            </div>
+
+            <div class="row" data-row="2">
+                <div class="cell" data-column="0"></div>
+                <div class="cell" data-column="1"></div>
+                <div class="cell" data-column="2"></div>
+                <div class="cell" data-column="3"></div>
+                <div class="cell" data-column="4"></div>
+                <div class="cell" data-column="5"></div>
+                <div class="cell" data-column="6"></div>
+            </div>
+
+            <div class="row" data-row="3">
+                <div class="cell" data-column="0"></div>
+                <div class="cell" data-column="1"></div>
+                <div class="cell" data-column="2"></div>
+                <div class="cell" data-column="3"></div>
+                <div class="cell" data-column="4"></div>
+                <div class="cell" data-column="5"></div>
+                <div class="cell" data-column="6"></div>
+            </div>
+
+            <div class="row" data-row="4">
+                <div class="cell" data-column="0"></div>
+                <div class="cell" data-column="1"></div>
+                <div class="cell" data-column="2"></div>
+                <div class="cell" data-column="3"></div>
+                <div class="cell" data-column="4"></div>
+                <div class="cell" data-column="5"></div>
+                <div class="cell" data-column="6"></div>
+            </div>
+
+            <div class="row" data-row="5">
+                <div class="cell" data-column="0"></div>
+                <div class="cell" data-column="1"></div>
+                <div class="cell" data-column="2"></div>
+                <div class="cell" data-column="3"></div>
+                <div class="cell" data-column="4"></div>
+                <div class="cell" data-column="5"></div>
+                <div class="cell" data-column="6"></div>
+            </div>
+
+            
+
+        </div>
+
+        <!-- Show the color of the player turn -->
+        <div id="playerTurn">It's the <span id="currentPlayer"></span>  player's turn.</div>
+
+        <!-- Hidden div who show the victory message at the end of the game -->
+        <div id="gameMessage" class="game-message"></div>
+
+        <!-- Table to show the score of the game -->
+        <div id="scoreboard">
+            <div class="score">
+                <span class="score-label">Red score :</span>
+                <span id="score-red">0</span>
+            </div>
+            <div class="score">
+                <span class="score-label">Yellow score :</span>
+                <span id="score-yellow">0</span>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

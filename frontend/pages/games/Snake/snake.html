@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Jeu de Snake</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../../assets/css/games/Snake/snake.css">
+
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+25&display=swap" rel="stylesheet">
+
+    <!-- AUDIO -->
+    <audio id="backgroundSound" src="../../../assets/audio/games/Snake/soundbox/snakeSound.mp3" preload="auto" loop></audio>
+    <audio id="eatingSound" src="../../../assets/audio/games/Snake/soundbox/eatingSound.wav" preload="auto"></audio>
+    <audio id="loosingSound" src="../../../assets/audio/games/Snake/soundbox/loosingSound.mp3" preload="auto"></audio>
+
+</head>
+
+<body>
+    <div id="snake-board">
+
+        <h1>Jeu de Snake</h1>
+
+        <div id="gameArea">
+            <canvas id="snakeGame" width="500" height="500"></canvas>
+        </div>
+
+        <div id="pressKey">
+            <p>Appuyer sur une des touches pour commencer à jouer</p></br>
+            <img src="../../../assets/images/games/Snake/img/startButton.png" alt="keyboard" id="keyboard">
+        </div>
+    </div>
+
+    <!-- SCORE DISPLAY -->
+    <div id="scorePanel">
+        Meilleur score : <span id="bestScore">0</span>
+    </div>
+
+    <!-- JS -->
+    <script src="./snakeLogic.js"></script>
+</body>
+
+</html>

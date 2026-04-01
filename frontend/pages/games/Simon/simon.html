@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Simon Game</title>
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="../../../assets/css/games/Simon/simon.css">
+
+	<!-- FONTS -->
+	<link href="https://fonts.googleapis.com/css2?family=Jersey+25&display=swap" rel="stylesheet">
+
+	<!-- SOUNDBOX -->
+	<audio id="sound1" src="../../../assets/audio/games/Simon/soundbox/sound_1.mp3" preload="auto"></audio>
+	<audio id="sound2" src="../../../assets/audio/games/Simon/soundbox/sound_2.mp3" preload="auto"></audio>
+	<audio id="sound3" src="../../../assets/audio/games/Simon/soundbox/sound_3.mp3" preload="auto"></audio>
+	<audio id="sound4" src="../../../assets/audio/games/Simon/soundbox/sound_4.mp3" preload="auto"></audio>
+	<audio id="backgroundSound" src="../../../assets/audio/games/Simon/soundbox/background.mp3" preload="auto" loop></audio>
+	<audio id="loserSound" src="../../../assets/audio/games/Simon/soundbox/loser.mp3" preload="auto"></audio>
+
+	<!-- VIDEO -->
+	<video autoplay loop muted id="background-video">
+		<source src="../../../assets/videos/games/Simon/video/gresillement.mp4" type="video/mp4">
+	</video>
+
+</head>
+
+<body>
+	<h1>Simon Game</h1>
+
+	<div id="score-display">
+		Votre meilleur score : <span id="best-score-value">-</span>
+	</div>
+
+	<div id="simon-board">
+		<button class="simon-btn top-left" onclick="handleClick(this)" data-color="1" disabled></button>
+		<button class="simon-btn top-right" onclick="handleClick(this)" data-color="2" disabled></button>
+		<button class="simon-btn bottom-left" onclick="handleClick(this)" data-color="3" disabled></button>
+		<button class="simon-btn bottom-right" onclick="handleClick(this)" data-color="4" disabled></button>
+	</div>
+
+	<div id="level">
+		<span>Niveau :
+			<span class="level-count">-</span>
+		</span>
+	</div>
+
+	<button id="power-btn" onclick="togglePower()">Commencer</button>
+
+	<!-- JS -->
+	<script src="simonLogic.js"></script>
+
+</body>
+
+</html>

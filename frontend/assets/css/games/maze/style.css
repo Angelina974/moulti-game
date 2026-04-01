@@ -1,0 +1,82 @@
+
+
+@font-face {
+    font-family: 'Type face Mario';
+    src: url('../../../fonts/games/maze/font/TypefaceMarioWorldPixelOutlineRegular-MVzKp.ttf') format('truetype');
+}
+
+
+
+
+
+#background {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+
+}
+
+#joueur {
+    position: absolute;
+    left: 790px;
+    top: 650px;
+    width: 10px;
+    height: 10px;
+
+
+}
+
+
+#resultatTitre {
+    font-family: "Type face Mario", sans-serif;
+    font-size: 200%;
+    color: red;
+
+}
+
+#buttonNext {
+    font-size: 150%;
+    font-family: "Type face Mario", sans-serif;
+    background-color: white;
+    border: none;
+    font-weight: 6000;
+    color: red;
+    transition: all 400ms cubic-bezier(.47,1.64,.41,.8);
+    
+
+}
+#buttonNext:hover{
+    transition: all 400ms cubic-bezier(.47,1.64,.41,.8);
+    transform: scale(1.1);
+    cursor: pointer;
+
+}
+
+.wrapperCol {
+    font-family: "Type face Mario", sans-serif;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 10px;
+    border-radius: 20px;
+    
+    
+
+}
+
+
+.wrapperRow {
+    font-family: "Type face Mario", sans-serif;
+    font-size: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 10px;
+    background-color: white;
+    border-radius: 20px;
+    
+}

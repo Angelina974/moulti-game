@@ -1,0 +1,2 @@
+﻿-- Database schema for moulti-game
+-- TODO: define tables, constraints, and indexes

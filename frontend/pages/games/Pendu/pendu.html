@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu du Pendu</title>
+    <link rel="stylesheet" href="../../../assets/css/games/Pendu/pendu.css">
+
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+25&display=swap" rel="stylesheet">
+
+    <!-- AUDIO -->
+    <audio id="findLetter" src="../../../assets/audio/games/Pendu/soundbox/findLetter.wav" preload="auto"></audio>
+    <audio id="losingSound" src="../../../assets/audio/games/Pendu/soundbox/losingSound.mp3" preload="auto"></audio>
+    <audio id="losingGame" src="../../../assets/audio/games/Pendu/soundbox/losingGame.wav" preload="auto"></audio>
+    <audio id="winningGame" src="../../../assets/audio/games/Pendu/soundbox/winningGame.wav" preload="auto"></audio>
+    <audio id="backgroundSound" src="../../../assets/audio/games/Pendu/soundbox/backgroundSound.mp3" preload="auto" loop></audio>
+    
+</head>
+
+<body>
+    <div id="game-container">
+        <h1>LE PENDU</h1>
+
+        <canvas id="hangman-canvas" width="600" height="400"></canvas>
+        <div id="word-container">
+            <p id="hidden-word"></p>
+        </div>
+        <div id="button-container">
+            <input type="text" id="letter-input" maxlength="1" placeholder="Entrer une lettre">
+            <button id="guess-button">Envoyer</button>
+            <button id="restart-button" style="visibility: hidden;">Recommencer</button>
+        </div>
+
+        <!-- Affiche le message de victoire ou de défaite -->
+        <p id="message"></p>
+
+        <!-- Affiche les scores du joueur -->
+        <div id="score-container">
+            <p id="win-score">Victoires : 0</p>
+            <p id="lose-score">Défaites : 0</p>
+        </div>
+
+    </div>
+    <script src="./game.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+body {
+    background-color: #191919;
+    margin: 0;
+}
+
+.centerDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.gameDivContainer {
+    width: 30%;
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
+
+.gameDivContainer .gresillement {
+    width: 30vw;
+    min-width: 200px;   
+    max-width: 550px;
+    min-height: 400px;
+    opacity: 0.3;
+    /* height: 100%; */
+    object-fit: cover;
+    animation: gresillement 0.2s linear infinite both;
+}
+
+@media screen and (max-width: 768px) {
+    .gameDivContainer .gresillement {
+        min-height: 200px;
+    }
+}
+
+.centerDiv img {
+    width: 68%;
+    min-width: 200px;
+    z-index: 0;
+
+
+}
+
+.centerDiv h1 {
+    font-family: 'Jersey 25', sans-serif;
+    color: #fff;
+    font-size: calc(1.2em + 3vw);
+    margin: 0;
+}
+
+.centerDiv a {
+    font-family: 'Jersey 25', sans-serif;
+    color: #fff;
+    font-size: calc(1em + 2vw);
+    background-color: green;
+    padding: 0px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.centerDiv a:hover {
+    background-color: #00cc00;
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
+.gameDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrowLeft {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 20px solid rgb(255, 255, 255); 
+}
+
+.arrowRight {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 20px solid rgb(255, 255, 255); 
+}
+
+
+.arrowLeft, .arrowRight {
+    z-index: 2; 
+    cursor: pointer; 
+    transition: all 0.3s ease;
+}
+
+.arrowLeft:hover {
+    border-right: 20px solid rgba(0,173,238,255); 
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.arrowRight:hover {
+    border-left: 20px solid rgba(0,173,238,255); 
+}
+
+.contactRight {
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+    margin: 0;
+    color: #fff;
+    font-family: 'Jersey 25', sans-serif;
+    font-size: calc(1em + 1vw);
+    text-decoration: none;
+}
+
+.contactRight:hover {
+    color: rgba(0,173,238,255);
+    transition: all 0.3s ease;
+    text-decoration: underline;
+}
+
+.retourLeft {
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    margin: 0;
+    color: #fff;
+    font-family: 'Jersey 25', sans-serif;
+    font-size: calc(1em + 1vw);
+    text-decoration: none;
+}
+
+.retourLeft:hover {
+    color: rgba(0,173,238,255);
+    transition: all 0.3s ease;
+    text-decoration: underline;
+}
+
+

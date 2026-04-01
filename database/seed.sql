@@ -1,0 +1,2 @@
+﻿-- Seed data for moulti-game
+-- TODO: insert initial rows for development/demo

@@ -1,0 +1,32 @@
+@keyframes blink {
+    50% {
+        background-color: #FFD700;
+    }
+}
+
+.blink {
+    animation: blink 1s ease-in-out 8;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+        background-color: #0f6d01;
+    }
+}
+
+.pulse {
+    animation: pulse 1s ease-in-out infinite;
+}
+
+.falling-token {
+    position: absolute;
+    border-radius: 50%;
+    transition: transform 0.5s ease-in;
+}

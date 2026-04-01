@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <link rel="stylesheet" type="text/css" href="../../../assets/css/games/maze/style.css" />
+    <script src="script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <div id="background">
+      <img
+        id="joueur"
+        src="../../../assets/images/games/maze/Rond_rouge.png"
+        alt="joueur"
+        crossorigin="anonymous"
+      />
+      <img
+        id="labyrinthe"
+        style="display: none"
+        src="../../../assets/images/games/maze/labyrinthe.png"
+        alt="labyrinthe"
+        crossorigin="anonymous"
+      />
+      <canvas id="canvas" width="950px" height="700px"></canvas>
+      <div class="wrapperCol">
+        <h2 id='resultatTitre'></h2>
+        <div id="resultatDiv"></div>
+        <div class="wrapperRow">
+            <h2>Votre score est de </h2>
+            <h2 id="chronometersAfficher"></h2>
+            <h2> secondes</h2>
+        </div>
+        </div>
+    </div>
+  </body>
+</html>
