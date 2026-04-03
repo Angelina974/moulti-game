@@ -1,0 +1,16 @@
+﻿.back-to-menu {
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    margin: 0;
+    color: #fff;
+    font-family: 'Jersey 25', sans-serif;
+    font-size: calc(1em + 1vw);
+    text-decoration: none;
+}
+
+.back-to-menu:hover {
+    color: rgba(0,173,238,255);
+    transition: all 0.3s ease;
+    text-decoration: underline;
+}

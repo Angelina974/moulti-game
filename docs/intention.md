@@ -47,7 +47,7 @@ Le code est organisé avec des routes, des contrôleurs et des modèles pour sé
 
 ### Base de données
 
-Une base de données relationnelle (MySQL ou PostgreSQL) est utilisée pour stocker :
+Une base de données relationnelle (PostgreSQL) est utilisée pour stocker :
 
 * les utilisateurs
 * les jeux
@@ -94,7 +94,7 @@ C’est une solution rapide à mettre en place pour créer une API REST et gére
 
 ### Base de données
 
-* MySQL ou PostgreSQL
+* PostgreSQL
 
 Une base relationnelle est suffisante pour gérer les utilisateurs et les scores.
 
@@ -126,15 +126,6 @@ Chaque jeu doit envoyer un score dans un format cohérent pour pouvoir l’enreg
 
 Il faut concevoir des tables simples mais efficaces pour relier les utilisateurs, les jeux et les scores.
 
-### Sécurité
-
-Même si ce n’est pas un projet pro, il faut quand même :
-
-* hasher les mots de passe
-* protéger certaines routes
-* gérer les tokens ou sessions
-
----
 
 ## 6. Conclusion
 

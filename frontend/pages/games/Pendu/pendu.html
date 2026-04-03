@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -16,10 +16,11 @@
     <audio id="losingGame" src="../../../assets/audio/games/Pendu/soundbox/losingGame.wav" preload="auto"></audio>
     <audio id="winningGame" src="../../../assets/audio/games/Pendu/soundbox/winningGame.wav" preload="auto"></audio>
     <audio id="backgroundSound" src="../../../assets/audio/games/Pendu/soundbox/backgroundSound.mp3" preload="auto" loop></audio>
-    
+    <link rel="stylesheet" href="../../../assets/css/games/common.css">
 </head>
 
 <body>
+    <a href="../../welcome.html" class="back-to-menu">Retour au menu</a>
     <div id="game-container">
         <h1>LE PENDU</h1>
 
@@ -33,13 +34,13 @@
             <button id="restart-button" style="visibility: hidden;">Recommencer</button>
         </div>
 
-        <!-- Affiche le message de victoire ou de défaite -->
+        <!-- Affiche le message de victoire ou de dÃ©faite -->
         <p id="message"></p>
 
         <!-- Affiche les scores du joueur -->
         <div id="score-container">
             <p id="win-score">Victoires : 0</p>
-            <p id="lose-score">Défaites : 0</p>
+            <p id="lose-score">DÃ©faites : 0</p>
         </div>
 
     </div>
@@ -47,3 +48,6 @@
 </body>
 
 </html>
+
+
+
