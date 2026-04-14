@@ -1,58 +1,69 @@
 ﻿const arrowRight = document.querySelector('.arrowRight');
 const arrowLeft = document.querySelector('.arrowLeft');
-const gameDivContainer = document.querySelector('.gameDivContainer');
-const playButton = document.querySelector('.playButton'); // Selectionne le bouton "PLAY"
+const gamePreview = document.querySelector('#gamePreview');
+const playButton = document.querySelector('.playButton');
+const logoutButton = document.querySelector('.logoutRight');
 
 const audio = new Audio('../assets/audio/click.mp3');
 
-// Liste des images pour chaque jeu
-const gameImages = [
-    '',
-    '../assets/images/devinenombre.png',// Jeu de Enzo - Devine le nombre
-    '../assets/images/pendu.png',// Jeu de Julia - Pendu
-    '../assets/images/puissance4.png',// Jeu de Julia - Puissance 4
-    '../assets/images/simongame.png',// Jeu de Julia - Simon
-    '../assets/images/snake.png',// Jeu de Julia - Snake
-    '../assets/images/maze.png'// Jeu de Manon - Labyrinthe
-];
-
-// Liste des URLs des pages de chaque jeu
-const gameUrls = [
-    '',
-    'games/devineNombre/devineNombre.html', // Jeu de Enzo - Devine le nombre
-    'games/Pendu/pendu.html',  // Jeu de Julia - Pendu
-    'games/Puissance 4/index.html',    // Jeu de Julia - Puissance 4
-    'games/Simon/simon.html',  // Jeu de Julia - Simon
-    'games/Snake/snake.html',   // Jeu de Julia - Snake
-    'games/maze/labyrinth.html'  // Jeu de Manon - Labyrinthe
+const games = [
+    {
+        name: 'DevineNombre',
+        image: '../assets/images/devinenombre.png',
+        url: 'games/devineNombre/devineNombre.html'
+    },
+    {
+        name: 'Pendu',
+        image: '../assets/images/pendu.png',
+        url: 'games/Pendu/pendu.html'
+    },
+    {
+        name: 'Puissance4',
+        image: '../assets/images/puissance4.png',
+        url: 'games/Puissance 4/index.html'
+    },
+    {
+        name: 'Simon',
+        image: '../assets/images/simongame.png',
+        url: 'games/Simon/simon.html'
+    },
+    {
+        name: 'Snake',
+        image: '../assets/images/snake.png',
+        url: 'games/Snake/snake.html'
+    }
 ];
 
 let currentGameIndex = 0;
 
+function updateGamePreview() {
+    if (!gamePreview || !playButton) {
+        return;
+    }
 
-function updateGameImage() {    
-    gameDivContainer.style.backgroundImage = `url(${gameImages[currentGameIndex]})`;
-    playButton.href = gameUrls[currentGameIndex];
-    gameDivContainer.style.backgroundSize = 'cover';
-    gameDivContainer.style.backgroundPosition = 'center'; // Place l'image vers la droite et la centre verticalement
-
+    const selectedGame = games[currentGameIndex];
+    gamePreview.src = selectedGame.image;
+    gamePreview.alt = `Apercu ${selectedGame.name}`;
+    playButton.href = selectedGame.url;
 }
 
-updateGameImage();
+updateGamePreview();
 
-arrowRight.addEventListener('click', () => {
-    audio.play();
-    currentGameIndex = (currentGameIndex + 1) % gameImages.length;
-    updateGameImage();
-});
+if (arrowRight) {
+    arrowRight.addEventListener('click', () => {
+        audio.play();
+        currentGameIndex = (currentGameIndex + 1) % games.length;
+        updateGamePreview();
+    });
+}
 
-arrowLeft.addEventListener('click', () => {
-    audio.play();
-    currentGameIndex = (currentGameIndex - 1 + gameImages.length) % gameImages.length;
-    updateGameImage();
-});
-
-const logoutButton = document.querySelector('.logoutRight');
+if (arrowLeft) {
+    arrowLeft.addEventListener('click', () => {
+        audio.play();
+        currentGameIndex = (currentGameIndex - 1 + games.length) % games.length;
+        updateGamePreview();
+    });
+}
 
 if (logoutButton) {
     logoutButton.addEventListener('click', () => {

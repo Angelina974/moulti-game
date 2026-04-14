@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historique des scores</title>
+  <link rel="stylesheet" href="../../assets/css/scores-history.css">
+  <link rel="stylesheet" href="../../assets/css/games/common.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jersey+25&display=swap" rel="stylesheet">
+  <script src="../../js/auth-guard.js" defer></script>
+  <script src="../../js/scores-history.js" defer></script>
+</head>
+<body>
+  <a href="../welcome.html" class="back-to-menu">RETOUR</a>
+
+  <main class="container">
+    <h1>Historique des Scores</h1>
+
+    <section class="insights">
+      <div class="insights-head">
+        <h2>Resume intelligent des performances</h2>
+        <button id="summaryButton" type="button">Generer mon resume IA</button>
+      </div>
+      <div id="summaryCard" class="summary-card empty">
+        Clique sur le bouton pour generer une synthese personnalisee de tes performances.
+      </div>
+    </section>
+
+    <section class="filters">
+      <label for="gameFilter">Filtrer par jeu:</label>
+      <select id="gameFilter">
+        <option value="">Tous les jeux</option>
+      </select>
+      <button id="refreshButton" type="button">Actualiser</button>
+      <button id="deleteButton" type="button" class="danger">Supprimer l'historique</button>
+    </section>
+
+    <p id="status" class="status"></p>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Jeu</th>
+            <th>Score</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="historyBody"></tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

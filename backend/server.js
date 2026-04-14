@@ -1,6 +1,8 @@
 ﻿const express = require("express");
 const path = require("path");
 const { createUser, findByEmail, findById } = require("./src/services/userStore");
+const { createScore, listGamesByPlayer, listScoresByPlayer, deleteScoresByPlayer } = require("./src/services/scoreStore");
+const { generatePerformanceSummary } = require("./src/services/performanceSummary");
 const { hashPassword, verifyPassword } = require("./src/utils/password");
 const { createAuthToken, JWT_EXPIRES_IN } = require("./src/utils/jwt");
 const { requireAuth } = require("./src/middleware/auth");
@@ -119,6 +121,100 @@ app.get("/api/auth/me", requireAuth, async (req, res) => {
       }
     });
   } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Erreur serveur" });
+  }
+});
+
+app.post("/api/scores", requireAuth, async (req, res) => {
+  try {
+    const { gameName, scoreValue, metadata } = req.body || {};
+
+    if (!gameName || scoreValue === undefined || scoreValue === null) {
+      return res.status(400).json({ message: "gameName et scoreValue sont requis" });
+    }
+
+    const normalizedGameName = String(gameName).trim();
+    const normalizedScore = Number(scoreValue);
+
+    if (!normalizedGameName) {
+      return res.status(400).json({ message: "gameName invalide" });
+    }
+
+    if (!Number.isFinite(normalizedScore)) {
+      return res.status(400).json({ message: "scoreValue doit etre un nombre" });
+    }
+
+    const score = await createScore({
+      playerId: req.auth.sub,
+      gameName: normalizedGameName,
+      scoreValue: Math.trunc(normalizedScore),
+      metadata: metadata ?? null
+    });
+
+    return res.status(201).json({ message: "Score enregistre", score });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Erreur serveur" });
+  }
+});
+
+app.get("/api/scores/games", requireAuth, async (req, res) => {
+  try {
+    const games = await listGamesByPlayer(req.auth.sub);
+    return res.status(200).json({ games });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Erreur serveur" });
+  }
+});
+
+app.get("/api/scores/history", requireAuth, async (req, res) => {
+  try {
+    const gameName = req.query.game ? String(req.query.game) : null;
+    const limit = req.query.limit ? Number(req.query.limit) : 50;
+
+    const scores = await listScoresByPlayer(req.auth.sub, { gameName, limit });
+    return res.status(200).json({ scores });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Erreur serveur" });
+  }
+});
+
+app.delete("/api/scores/history", requireAuth, async (req, res) => {
+  try {
+    const gameName = req.query.game ? String(req.query.game) : null;
+    const deletedCount = await deleteScoresByPlayer(req.auth.sub, gameName);
+
+    return res.status(200).json({
+      message: "Historique supprime",
+      deletedCount
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Erreur serveur" });
+  }
+});
+
+app.get("/api/insights/performance-summary", requireAuth, async (req, res) => {
+  try {
+    const scores = await listScoresByPlayer(req.auth.sub, { limit: 200 });
+    const insight = await generatePerformanceSummary(scores);
+    return res.status(200).json(insight);
+  } catch (error) {
+    if (error.code === "OPENAI_API_KEY_MISSING") {
+      return res.status(503).json({
+        message: "OPENAI_API_KEY manquant sur le backend."
+      });
+    }
+
+    if (error.code === "OPENAI_API_ERROR") {
+      return res.status(502).json({
+        message: "Erreur OpenAI pendant la generation du resume."
+      });
+    }
+
     console.error(error);
     return res.status(500).json({ message: "Erreur serveur" });
   }

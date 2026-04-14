@@ -6,7 +6,13 @@
         <link href="../../../assets/css/devineNombre.css" rel="stylesheet">
         <script src="devineNombre.js" defer></script>
     <link rel="stylesheet" href="../../../assets/css/games/common.css">
+
+    <!-- SCRIPTS-->
     <script src="../../../js/auth-guard.js" defer></script>
+    <script src="../../../js/score-api.js" defer></script>
+
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+25&display=swap" rel="stylesheet">
 </head>
     <body>
     <a href="../../welcome.html" class="back-to-menu">Retour au menu</a>
@@ -14,7 +20,7 @@
         <div class="grosContainer">
             <div class="containerText">
                 <h1>Devine le Nombre</h1>
-                <p>Devinez le code secret Ã  4 chiffres. Chaque chiffre est unique.</p>
+                <p>Devinez le code secret à 4 chiffres. Chaque chiffre est unique.</p>
                 <form id="guessForm">
                     <input type="text" id="guessInput" maxlength="4" pattern="\d{4}" required>
                     <button type="submit">Envoyer</button>
@@ -31,6 +37,7 @@
 
     </body>
 </html>
+
 
 
 

@@ -27,15 +27,13 @@
 	</video>
     <link rel="stylesheet" href="../../../assets/css/games/common.css">
     <script src="../../../js/auth-guard.js" defer></script>
+    <script src="../../../js/score-api.js" defer></script>
 </head>
 
 <body>
     <a href="../../welcome.html" class="back-to-menu">Retour au menu</a>
 	<h1>Simon Game</h1>
 
-	<div id="score-display">
-		Votre meilleur score : <span id="best-score-value">-</span>
-	</div>
 
 	<div id="simon-board">
 		<button class="simon-btn top-left" onclick="handleClick(this)" data-color="1" disabled></button>
@@ -58,6 +56,8 @@
 </body>
 
 </html>
+
+
 
 
 

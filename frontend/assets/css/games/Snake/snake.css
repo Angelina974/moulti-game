@@ -1,15 +1,16 @@
-body {
+﻿body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    min-height: 100vh;
+    margin: 0;
     background-color: #1a1a1a;
     overflow: hidden;
 }
 
 #snakeGame {
     position: absolute;
-    border-radius: 15px; 
+    border-radius: 15px;
     overflow: hidden;
     top: 0;
     left: 0;

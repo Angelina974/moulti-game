@@ -13,27 +13,21 @@
         <script src="../js/welcome.js" defer></script>
     </head>
     <body>
-        <a href="../index.html" class="retourLeft">RETOUR</a>
 
         <div class="centerDiv">
             <h1>CHOOSE YOUR GAME</h1>
-            <div class="gameDivContainer">
-                <video src="../assets/videos/gresillement.mp4" autoplay loop muted class="gresillement"></video>
-            </div>
             <div class="gameDiv">
-                <div class="arrowLeft">
-                    
+                <div class="arrowLeft"></div>
+                <div class="gameDivContainer">
+                    <img id="gamePreview" src="../assets/images/devinenombre.png" alt="Apercu du jeu selectionne">
                 </div>
-                <img src="../assets/images/arcade.png" alt="arcade">  
+                <img src="../assets/images/arcade.png" alt="arcade" class="arcadeImage">
                 <div class="arrowRight"></div>
             </div>
             <a href="../index.html" class="playButton">PLAY</a>
-            
+            <a href="scores/history.html" class="historyButton">HISTORIQUE SCORES</a>
         </div>
 
         <button type="button" class="logoutRight">DECONNEXION</button>
-        
-        <a href="contact.html" class="contactRight">CONTACT</a>
-
     </body>
 </html>

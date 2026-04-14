@@ -18,6 +18,7 @@
     <audio id="backgroundSound" src="../../../assets/audio/games/Pendu/soundbox/backgroundSound.mp3" preload="auto" loop></audio>
     <link rel="stylesheet" href="../../../assets/css/games/common.css">
     <script src="../../../js/auth-guard.js" defer></script>
+    <script src="../../../js/score-api.js" defer></script>
 </head>
 
 <body>
@@ -35,13 +36,13 @@
             <button id="restart-button" style="visibility: hidden;">Recommencer</button>
         </div>
 
-        <!-- Affiche le message de victoire ou de dÃ©faite -->
+        <!-- Affiche le message de victoire ou de défaite -->
         <p id="message"></p>
 
         <!-- Affiche les scores du joueur -->
         <div id="score-container">
             <p id="win-score">Victoires : 0</p>
-            <p id="lose-score">DÃ©faites : 0</p>
+            <p id="lose-score">Défaites : 0</p>
         </div>
 
     </div>
@@ -49,6 +50,7 @@
 </body>
 
 </html>
+
 
 
 

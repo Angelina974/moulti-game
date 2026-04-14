@@ -1,4 +1,4 @@
-document.querySelectorAll('.cell').forEach(cell => {
+﻿document.querySelectorAll('.cell').forEach(cell => {
   cell.addEventListener('click', handleCellClick)
 })
 
@@ -35,12 +35,19 @@ function placeToken(column) {
       if (checkWin(row, column)) {
         displayGameMessage(currentPlayer)
         incrementScore(currentPlayer)
+        if (window.submitGameScore) {
+          const winnerScore = currentPlayer === 'RED' ? scoreRed : scoreYellow
+          window.submitGameScore('Puissance4', winnerScore, { winner: currentPlayer })
+        }
         setTimeout(() => {
           resetBoard()
         }, 4000)
         return
       } else if (checkDraw()) {
         displayGameMessage("Match nul !")
+        if (window.submitGameScore) {
+          window.submitGameScore('Puissance4', 0, { result: 'draw' })
+        }
         setTimeout(() => {
           resetBoard()
         }, 150)

@@ -1,4 +1,4 @@
-const canvas = document.getElementById('snakeGame')
+﻿const canvas = document.getElementById('snakeGame')
 const ctx = canvas.getContext('2d')
 const box = 20
 
@@ -15,10 +15,11 @@ let food = {
     y: 80
 } // Position initiale de la nourriture
 
-let dx = box // déplacement horizontal
-let dy = 0 // déplacement vertical
+let dx = box // dÃ©placement horizontal
+let dy = 0 // dÃ©placement vertical
 let score = 0
 let gameStarted = false
+let snakeScoreSent = false
 
 
 /**
@@ -41,7 +42,7 @@ function drawSnake() {
 }
 
 /**
- * Fonction qui déplace le serpent
+ * Fonction qui dÃ©place le serpent
  * @returns {void} - Retourne rien
  */
 function moveSnake() {
@@ -63,7 +64,7 @@ function moveSnake() {
 
 /**
  * Fonction qui permet au serpent de changer de direction
- * @param {object} event - Objet event de la touche pressée
+ * @param {object} event - Objet event de la touche pressÃ©e
  */
 function changeDirection(event) {
 
@@ -75,7 +76,7 @@ function changeDirection(event) {
 
     const validKeys = [LEFT_KEY, UP_KEY, RIGHT_KEY, DOWN_KEY]
 
-    // Le jeu se lance uniquement si une touche directionnelle est pressée
+    // Le jeu se lance uniquement si une touche directionnelle est pressÃ©e
     if (validKeys.includes(keyPressed)) {
         if (!gameStarted && !didGameEnd()) {
             gameStarted = true
@@ -109,17 +110,17 @@ function changeDirection(event) {
 }
 
 /**
- * Fonction qui génère un nombre aléatoire entre min et max
+ * Fonction qui gÃ©nÃ¨re un nombre alÃ©atoire entre min et max
  * @param {number} min - Valeur minimale
  * @param {number} max - Valeur maximale
- * @returns {number} - Retourne un nombre aléatoire
+ * @returns {number} - Retourne un nombre alÃ©atoire
  */
 function randomTen(min, max) {
     return Math.round((Math.random() * (max - min) + min) / box) * box
 }
 
 /**
- * Fonction qui génère la nourriture
+ * Fonction qui gÃ©nÃ¨re la nourriture
  */
 function generateFood() {
     food.x = randomTen(0, canvas.width - box)
@@ -147,13 +148,14 @@ function clearCanvas() {
 }
 
 /**
- * Fonction qui met à jour le jeu 
+ * Fonction qui met Ã  jour le jeu 
  */
 function resetGame() {
     snake = [{x: 160, y: 160}, {x: 140, y: 160}]
     dx = box
     dy = 0
     score = 0
+    snakeScoreSent = false
     gameStarted = false
     clearCanvas()
 }
@@ -177,14 +179,20 @@ function main() {
 }
 
 /**
- * Fonction qui vérifie si le jeu est terminé
- * @returns {boolean} - Retourne true si le jeu est terminé, false sinon
+ * Fonction qui vÃ©rifie si le jeu est terminÃ©
+ * @returns {boolean} - Retourne true si le jeu est terminÃ©, false sinon
  */
 function didGameEnd() {
     // Si le serpent se mord la queue
     for (let i = 4; i < snake.length; i++) {
-        // Si la tête du serpent touche un autre segment du serpent
-        if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true
+        // Si la tÃªte du serpent touche un autre segment du serpent
+        if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) {
+        if (!snakeScoreSent && window.submitGameScore) {
+            snakeScoreSent = true
+            window.submitGameScore('Snake', score, { result: 'self_collision' })
+        }
+        return true
+    }
     }
     const hitLeftWall = snake[0].x < 0
     const hitRightWall = snake[0].x > canvas.width - box
@@ -192,21 +200,25 @@ function didGameEnd() {
     const hitBottomWall = snake[0].y > canvas.height - box
     if (hitLeftWall || hitRightWall || hitTopWall || hitBottomWall) {
 
-        // On joue le son de défaite
+        // On joue le son de dÃ©faite
         var loosingSound = document.getElementById('loosingSound')
         loosingSound.play()
 
         // On affiche un message d'alerte
         alert('Vous avez perdu !')
 
-        // On met à jour le meilleur score
+                // On met à jour le meilleur score
         updateBestScore()
+        if (!snakeScoreSent && window.submitGameScore) {
+            snakeScoreSent = true
+            window.submitGameScore('Snake', score, { result: 'game_over' })
+        }
         localStorage.setItem('currentScore', 0)
 
-        // On réinitialise le jeu
+        // On rÃ©initialise le jeu
         resetGame()
 
-        // On arrête la musique de fond
+        // On arrÃªte la musique de fond
         var music = document.getElementById('backgroundSound')
         music.pause()
 
@@ -216,7 +228,7 @@ function didGameEnd() {
 }
 
 /**
- * Fonction qui met à jour le meilleur score
+ * Fonction qui met Ã  jour le meilleur score
  */
 function updateBestScore() {
     const bestScore = localStorage.getItem('bestScore') || 0
@@ -237,3 +249,5 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 document.addEventListener("keydown", changeDirection)
+
+

@@ -1,8 +1,9 @@
-body {
+﻿body {
     display: flex;
+    justify-content: center;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
     background-color: #1a1a1a;
     color: white;
@@ -109,7 +110,6 @@ h1 {
     font-size: 20px;
 }
 
-
 .highlight-red {
     background-color: #92f192;
     box-shadow: 0 0 20px #92f192;
@@ -135,17 +135,14 @@ h1 {
 }
 
 #background-video {
-    position: fixed; 
+    position: fixed;
     bottom: 0;
-    min-width: 100%;  
+    min-width: 100%;
     min-height: 100%;
     width: auto;
     height: auto;
-    z-index: -100;  
-    background-size: cover; 
+    z-index: -100;
+    background-size: cover;
     overflow: hidden;
     opacity: 0.05;
 }
-
-
-
