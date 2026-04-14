@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -11,9 +11,15 @@
 </head>
 <body>
     <h1>MOULTI GAME</h1><br><br>
-    <h2>CHOOSE MY GAME</h2>
+    <h2 id="goGames">CHOOSE MY GAME</h2>
+
+    <div class="auth-links">
+      <a href="pages/auth/login.html">Connexion</a>
+      <a href="pages/auth/register.html">Inscription</a>
+    </div>
+
     <script>
-        document.querySelector('h2').addEventListener('click', function() {
+        document.querySelector('#goGames').addEventListener('click', function() {
             window.location.href = 'pages/welcome.html';
         });
     </script>

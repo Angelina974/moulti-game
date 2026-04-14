@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscription joueur</title>
+  <link rel="stylesheet" href="../../assets/css/auth.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jersey+25&display=swap" rel="stylesheet">
+  <script src="../../js/auth-register.js" defer></script>
+</head>
+<body>
+  <a href="../../index.html" class="retour">RETOUR</a>
+
+  <main class="auth-container">
+    <h1>Inscription Joueur</h1>
+    <form id="registerForm" class="auth-form">
+      <label for="username">Pseudo</label>
+      <input id="username" name="username" type="text" minlength="2" required>
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required>
+
+      <label for="password">Mot de passe</label>
+      <input id="password" name="password" type="password" minlength="6" required>
+
+      <button type="submit">S'inscrire</button>
+    </form>
+
+    <p id="message" class="message"></p>
+
+    <p class="auth-link">
+      Deja inscrit ? <a href="login.html">Connexion</a>
+    </p>
+  </main>
+</body>
+</html>

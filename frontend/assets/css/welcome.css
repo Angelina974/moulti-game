@@ -1,4 +1,4 @@
-body {
+﻿body {
     background-color: #191919;
     margin: 0;
 }
@@ -142,3 +142,25 @@ body {
 }
 
 
+
+.logoutRight {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    margin: 0;
+    color: #fff;
+    font-family: 'Jersey 25', sans-serif;
+    font-size: calc(0.8em + 0.8vw);
+    text-decoration: none;
+    background: transparent;
+    border: 1px solid #fff;
+    border-radius: 8px;
+    padding: 4px 10px;
+    cursor: pointer;
+}
+
+.logoutRight:hover {
+    color: rgba(0,173,238,255);
+    border-color: rgba(0,173,238,255);
+    transition: all 0.3s ease;
+}

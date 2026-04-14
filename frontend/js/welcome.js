@@ -1,4 +1,4 @@
-const arrowRight = document.querySelector('.arrowRight');
+﻿const arrowRight = document.querySelector('.arrowRight');
 const arrowLeft = document.querySelector('.arrowLeft');
 const gameDivContainer = document.querySelector('.gameDivContainer');
 const playButton = document.querySelector('.playButton'); // Selectionne le bouton "PLAY"
@@ -51,3 +51,13 @@ arrowLeft.addEventListener('click', () => {
     currentGameIndex = (currentGameIndex - 1 + gameImages.length) % gameImages.length;
     updateGameImage();
 });
+
+const logoutButton = document.querySelector('.logoutRight');
+
+if (logoutButton) {
+    logoutButton.addEventListener('click', () => {
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('player');
+        window.location.href = '/pages/auth/login.html';
+    });
+}
