@@ -9,6 +9,11 @@ body {
     margin: 0;
 }
 
+h1 {
+    font-size: 60px;
+    font-weight: lighter;
+}
+
 #game-container {
     text-align: center;
     background-color: #2d2d2d;

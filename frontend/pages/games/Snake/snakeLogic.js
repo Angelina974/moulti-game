@@ -15,8 +15,8 @@ let food = {
     y: 80
 } // Position initiale de la nourriture
 
-let dx = box // dÃ©placement horizontal
-let dy = 0 // dÃ©placement vertical
+let dx = box // déplacement horizontal
+let dy = 0 // déplacement vertical
 let score = 0
 let gameStarted = false
 let snakeScoreSent = false
@@ -42,7 +42,7 @@ function drawSnake() {
 }
 
 /**
- * Fonction qui dÃ©place le serpent
+ * Fonction qui déplace le serpent
  * @returns {void} - Retourne rien
  */
 function moveSnake() {
@@ -64,7 +64,7 @@ function moveSnake() {
 
 /**
  * Fonction qui permet au serpent de changer de direction
- * @param {object} event - Objet event de la touche pressÃ©e
+ * @param {object} event - Objet event de la touche pressée
  */
 function changeDirection(event) {
 
@@ -76,7 +76,7 @@ function changeDirection(event) {
 
     const validKeys = [LEFT_KEY, UP_KEY, RIGHT_KEY, DOWN_KEY]
 
-    // Le jeu se lance uniquement si une touche directionnelle est pressÃ©e
+    // Le jeu se lance uniquement si une touche directionnelle est pressée
     if (validKeys.includes(keyPressed)) {
         if (!gameStarted && !didGameEnd()) {
             gameStarted = true
@@ -110,17 +110,17 @@ function changeDirection(event) {
 }
 
 /**
- * Fonction qui gÃ©nÃ¨re un nombre alÃ©atoire entre min et max
+ * Fonction qui génère un nombre aléatoire entre min et max
  * @param {number} min - Valeur minimale
  * @param {number} max - Valeur maximale
- * @returns {number} - Retourne un nombre alÃ©atoire
+ * @returns {number} - Retourne un nombre aléatoire
  */
 function randomTen(min, max) {
     return Math.round((Math.random() * (max - min) + min) / box) * box
 }
 
 /**
- * Fonction qui gÃ©nÃ¨re la nourriture
+ * Fonction qui génère la nourriture
  */
 function generateFood() {
     food.x = randomTen(0, canvas.width - box)
@@ -148,7 +148,7 @@ function clearCanvas() {
 }
 
 /**
- * Fonction qui met Ã  jour le jeu 
+ * Fonction qui met à jour le jeu 
  */
 function resetGame() {
     snake = [{x: 160, y: 160}, {x: 140, y: 160}]
@@ -179,8 +179,8 @@ function main() {
 }
 
 /**
- * Fonction qui vÃ©rifie si le jeu est terminÃ©
- * @returns {boolean} - Retourne true si le jeu est terminÃ©, false sinon
+ * Fonction qui vérifie si le jeu est terminé
+ * @returns {boolean} - Retourne true si le jeu est terminé, false sinon
  */
 function didGameEnd() {
     // Si le serpent se mord la queue
@@ -200,7 +200,7 @@ function didGameEnd() {
     const hitBottomWall = snake[0].y > canvas.height - box
     if (hitLeftWall || hitRightWall || hitTopWall || hitBottomWall) {
 
-        // On joue le son de dÃ©faite
+        // On joue le son de défaite
         var loosingSound = document.getElementById('loosingSound')
         loosingSound.play()
 
@@ -215,7 +215,7 @@ function didGameEnd() {
         }
         localStorage.setItem('currentScore', 0)
 
-        // On rÃ©initialise le jeu
+        // On réinitialise le jeu
         resetGame()
 
         // On arrÃªte la musique de fond

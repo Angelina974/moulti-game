@@ -31,12 +31,14 @@
 .containerText h1 {
     margin: 0;
     font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: lighter;
 }
 
 .containerText p {
     margin: 0;
     font-size: clamp(1rem, 1.6vw, 1.4rem);
     opacity: 0.95;
+    font-weight: lighter;
 }
 
 #guessForm {
