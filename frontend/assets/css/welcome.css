@@ -1,15 +1,19 @@
 ﻿body {
     background-color: #191919;
     margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
 .centerDiv {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     flex-direction: column;
-    gap: 20px;
+    gap: clamp(12px, 2.5vh, 20px);
+    box-sizing: border-box;
+    padding: clamp(64px, 9vh, 96px) 16px clamp(24px, 5vh, 48px);
 }
 
 .gameDiv {
@@ -17,12 +21,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: min(78vw, 780px);
+    width: min(86vw, 64vh, 780px);
 }
 
 .arcadeImage {
     width: 100%;
-    min-width: 260px;
+    min-width: 0;
+    height: auto;
+    display: block;
     z-index: 2;
     position: relative;
 }
@@ -32,6 +38,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -56%);
+    width: 34%;
+    max-width: 270px;
     aspect-ratio: 1 / 1;
     display: flex;
     justify-content: center;
@@ -52,18 +60,24 @@
 .centerDiv h1 {
     font-family: 'Jersey 25', sans-serif;
     color: #fff;
-    font-size: calc(1.2em + 3vw);
+    font-size: clamp(2.4rem, 7vw, 4.8rem);
     margin: 0;
+    text-align: center;
+    line-height: 0.9;
 }
 
 .centerDiv a {
     font-family: 'Jersey 25', sans-serif;
     color: #fff;
-    font-size: calc(1em + 2vw);
+    font-size: clamp(1.75rem, 4vw, 3rem);
     background-color: green;
-    padding: 0px 20px;
+    padding: 2px 20px;
     border-radius: 10px;
     text-decoration: none;
+    text-align: center;
+    line-height: 1;
+    max-width: min(92vw, 520px);
+    box-sizing: border-box;
 }
 
 .centerDiv a:hover {
@@ -75,17 +89,17 @@
 .arrowLeft {
     width: 0;
     height: 0;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-right: 20px solid rgb(255, 255, 255);
+    border-top: clamp(8px, 1.7vw, 14px) solid transparent;
+    border-bottom: clamp(8px, 1.7vw, 14px) solid transparent;
+    border-right: clamp(16px, 3.2vw, 28px) solid rgb(255, 255, 255);
 }
 
 .arrowRight {
     width: 0;
     height: 0;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-left: 20px solid rgb(255, 255, 255);
+    border-top: clamp(8px, 1.7vw, 14px) solid transparent;
+    border-bottom: clamp(8px, 1.7vw, 14px) solid transparent;
+    border-left: clamp(16px, 3.2vw, 28px) solid rgb(255, 255, 255);
 }
 
 .arrowLeft, .arrowRight {
@@ -96,13 +110,13 @@
 }
 
 .arrowLeft:hover {
-    border-right: 20px solid rgba(0,173,238,255);
+    border-right-color: rgba(0,173,238,255);
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .arrowRight:hover {
-    border-left: 20px solid rgba(0,173,238,255);
+    border-left-color: rgba(0,173,238,255);
 }
 
 .contactRight {
@@ -140,19 +154,22 @@
 }
 
 .logoutRight {
-    position: absolute;
-    top: 15px;
-    right: 20px;
+    position: fixed;
+    top: clamp(10px, 2vw, 15px);
+    right: clamp(10px, 3vw, 20px);
     margin: 0;
     color: #fff;
     font-family: 'Jersey 25', sans-serif;
-    font-size: calc(1.2em + 0.8vw);
+    font-size: clamp(1.25rem, 3vw, 2rem);
     text-decoration: none;
     background: transparent;
     border: 1px solid #fff;
     border-radius: 8px;
     padding: 4px 10px;
     cursor: pointer;
+    line-height: 1;
+    max-width: calc(100vw - 20px);
+    z-index: 4;
 }
 
 .logoutRight:hover {
@@ -164,9 +181,7 @@
 .historyButton {
     font-family: 'Jersey 25', sans-serif;
     color: #fff;
-    font-size: calc(1em + 2vw);
     background-color: green;
-    padding: 0px 20px;
     border-radius: 10px;
     text-decoration: none;
 }
@@ -175,4 +190,66 @@
     background-color: #00cc00;
     transform: scale(1.1);
     transition: all 0.3s ease;
+}
+
+@media (max-width: 640px) {
+    .centerDiv {
+        justify-content: flex-start;
+        padding-top: 76px;
+    }
+
+    .gameDiv {
+        width: min(96vw, 430px);
+    }
+
+    .gameDivContainer {
+        width: 35%;
+    }
+
+    .arrowLeft,
+    .arrowRight {
+        margin: 0 -4px;
+    }
+
+    .centerDiv a {
+        width: min(92vw, 360px);
+    }
+}
+
+@media (max-width: 380px) {
+    .centerDiv {
+        gap: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .centerDiv h1 {
+        font-size: 2.2rem;
+    }
+
+    .logoutRight {
+        font-size: 1.1rem;
+        padding: 4px 8px;
+    }
+}
+
+@media (max-height: 620px) and (orientation: landscape) {
+    .centerDiv {
+        padding-top: 48px;
+        padding-bottom: 16px;
+        gap: 8px;
+    }
+
+    .centerDiv h1 {
+        font-size: clamp(2rem, 7vh, 3rem);
+    }
+
+    .gameDiv {
+        width: min(86vw, 55vh, 780px);
+    }
+
+    .centerDiv a {
+        font-size: clamp(1.4rem, 6vh, 2.2rem);
+        padding: 1px 16px;
+    }
 }
