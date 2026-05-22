@@ -23,12 +23,50 @@ function setStatus(message) {
   statusText.textContent = message;
 }
 
+function getScoreMetadata(score) {
+  if (!score || !score.metadata) {
+    return {};
+  }
+
+  if (typeof score.metadata === "string") {
+    try {
+      return JSON.parse(score.metadata);
+    } catch (error) {
+      return {};
+    }
+  }
+
+  return score.metadata;
+}
+
+function formatWinner(score) {
+  if (!score || score.game_name !== "Puissance4") {
+    return "-";
+  }
+
+  const metadata = getScoreMetadata(score);
+
+  if (metadata.result === "draw") {
+    return "Match nul";
+  }
+
+  if (metadata.winner === "RED") {
+    return "Joueur rouge";
+  }
+
+  if (metadata.winner === "YELLOW") {
+    return "Joueur jaune";
+  }
+
+  return "-";
+}
+
 function renderRows(scores) {
   historyBody.innerHTML = "";
 
   if (!scores.length) {
     const row = document.createElement("tr");
-    row.innerHTML = `<td colspan="3">Aucun score enregistre pour ce filtre.</td>`;
+    row.innerHTML = `<td colspan="4">Aucun score enregistre pour ce filtre.</td>`;
     historyBody.appendChild(row);
     return;
   }
@@ -38,6 +76,7 @@ function renderRows(scores) {
     row.innerHTML = `
       <td>${score.game_name}</td>
       <td>${score.score_value}</td>
+      <td>${formatWinner(score)}</td>
       <td>${formatDate(score.played_at)}</td>
     `;
     historyBody.appendChild(row);

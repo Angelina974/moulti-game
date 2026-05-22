@@ -6,7 +6,7 @@
 
 ## Liens depots GitHub
 
-- **Repository principal :** A COMPLETER (`https://github.com/Angelina974/moulti-game`)
+- **Repository principal :** (`https://github.com/Angelina974/moulti-game`)
 
 ---
 
