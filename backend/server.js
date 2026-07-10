@@ -5,7 +5,7 @@ const { createScore, listGamesByPlayer, listScoresByPlayer, deleteScoresByPlayer
 const { generatePerformanceSummary } = require("./src/services/performanceSummary");
 const { hashPassword, verifyPassword } = require("./src/utils/password");
 const { createAuthToken, JWT_EXPIRES_IN } = require("./src/utils/jwt");
-const { requireAuth } = require("./src/middleware/auth");
+const { requireAuth, requireRole } = require("./src/middleware/auth");
 const { initDatabase, pool } = require("./src/db");
 
 const app = express();
@@ -38,7 +38,8 @@ app.post("/api/auth/register", async (req, res) => {
     const result = await createUser({
       username: String(username).trim(),
       email: String(email).trim(),
-      passwordHash: hashPassword(String(password))
+      passwordHash: hashPassword(String(password)),
+      role: "player"
     });
 
     if (result.error === "EMAIL_ALREADY_EXISTS") {
@@ -57,7 +58,8 @@ app.post("/api/auth/register", async (req, res) => {
       player: {
         id: user.id,
         username: user.username,
-        email: user.email
+        email: user.email,
+        role: user.role
       }
     });
   } catch (error) {
@@ -95,7 +97,8 @@ app.post("/api/auth/login", async (req, res) => {
       player: {
         id: user.id,
         username: user.username,
-        email: user.email
+        email: user.email,
+        role: user.role
       }
     });
   } catch (error) {
@@ -117,6 +120,7 @@ app.get("/api/auth/me", requireAuth, async (req, res) => {
         id: user.id,
         username: user.username,
         email: user.email,
+        role: user.role,
         createdAt: user.createdAt
       }
     });
@@ -226,7 +230,20 @@ app.get("/api/protected/ping", requireAuth, (req, res) => {
     auth: {
       id: req.auth.sub,
       username: req.auth.username,
-      email: req.auth.email
+      email: req.auth.email,
+      role: req.auth.role
+    }
+  });
+});
+
+app.get("/api/admin/ping", requireAuth, requireRole("admin"), (req, res) => {
+  res.status(200).json({
+    message: "Route admin accessible",
+    auth: {
+      id: req.auth.sub,
+      username: req.auth.username,
+      email: req.auth.email,
+      role: req.auth.role
     }
   });
 });

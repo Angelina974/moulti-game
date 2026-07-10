@@ -9,6 +9,7 @@ function toDomainUser(row) {
     id: row.id,
     username: row.username,
     email: row.email,
+    role: row.role,
     passwordHash: row.password_hash,
     createdAt: row.created_at
   };
@@ -17,7 +18,7 @@ function toDomainUser(row) {
 async function findByEmail(email) {
   const normalizedEmail = email.toLowerCase();
   const result = await query(
-    `SELECT id, username, email, password_hash, created_at
+    `SELECT id, username, email, role, password_hash, created_at
      FROM players
      WHERE email = $1
      LIMIT 1`,
@@ -29,7 +30,7 @@ async function findByEmail(email) {
 
 async function findById(id) {
   const result = await query(
-    `SELECT id, username, email, password_hash, created_at
+    `SELECT id, username, email, role, password_hash, created_at
      FROM players
      WHERE id = $1
      LIMIT 1`,
@@ -39,15 +40,15 @@ async function findById(id) {
   return toDomainUser(result.rows[0]);
 }
 
-async function createUser({ username, email, passwordHash }) {
+async function createUser({ username, email, passwordHash, role = "player" }) {
   const normalizedEmail = email.toLowerCase();
 
   try {
     const result = await query(
-      `INSERT INTO players (username, email, password_hash)
-       VALUES ($1, $2, $3)
-       RETURNING id, username, email, password_hash, created_at`,
-      [username, normalizedEmail, passwordHash]
+      `INSERT INTO players (username, email, role, password_hash)
+       VALUES ($1, $2, $3, $4)
+       RETURNING id, username, email, role, password_hash, created_at`,
+      [username, normalizedEmail, role, passwordHash]
     );
 
     return { user: toDomainUser(result.rows[0]) };

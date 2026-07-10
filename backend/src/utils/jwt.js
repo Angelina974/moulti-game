@@ -8,7 +8,8 @@ function createAuthToken(user) {
     {
       sub: user.id,
       username: user.username,
-      email: user.email
+      email: user.email,
+      role: user.role
     },
     JWT_SECRET,
     { expiresIn: JWT_EXPIRES_IN }

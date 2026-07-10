@@ -16,6 +16,7 @@ Fonctionnalités principales :
 
 - inscription et connexion utilisateur ;
 - authentification par JWT ;
+- gestion des rôles utilisateur (`player`, `admin`) ;
 - enregistrement des scores en base PostgreSQL ;
 - historique des parties avec filtrage par jeu ;
 - suppression de l'historique global ou ciblé ;
@@ -155,6 +156,7 @@ Quelques vérifications utiles :
 - `POST /api/auth/register`
 - `POST /api/auth/login`
 - `GET /api/auth/me`
+- `GET /api/admin/ping` - route protégée réservée au rôle `admin`
 
 ### Scores
 
@@ -185,6 +187,19 @@ La réponse contient notamment :
 - `nextGoal`
 
 Cette fonctionnalité permet d'aller au-delà d'un simple affichage de scores en proposant un retour personnalisé sur la progression du joueur.
+
+## Gestion des rôles
+
+Le projet gère désormais deux rôles :
+
+- `player` : rôle attribué par défaut à tout nouvel utilisateur ;
+- `admin` : rôle permettant d'accéder aux routes réservées à l'administration.
+
+Le rôle est stocké en base de données, intégré au JWT, puis contrôlé côté backend via un middleware dédié.
+
+Pour la démonstration, la route suivante est protégée par le rôle `admin` :
+
+- `GET /api/admin/ping`
 
 ## Base de données
 
