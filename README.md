@@ -79,6 +79,64 @@ OPENAI_MODEL=gpt-4o-mini
 
 La fonctionnalité IA nécessite une clé OpenAI valide dans `OPENAI_API_KEY`.
 
+## Activer l’IA
+
+La fonctionnalité IA est utilisée depuis la page d’historique des scores. Le backend envoie les statistiques du joueur à l’API OpenAI, puis retourne un résumé exploitable dans l’interface.
+
+### 1. Renseigner la clé OpenAI
+
+Deux options simples sont possibles.
+
+Option 1 : définir la clé dans la session PowerShell avant de lancer Docker
+
+```powershell
+$env:OPENAI_API_KEY="sk-..."
+$env:OPENAI_MODEL="gpt-4o-mini"
+docker compose up --build
+```
+
+Option 2 : créer un fichier `.env` à la racine du projet à partir de `.env.example`
+
+```env
+OPENAI_API_KEY=sk-...
+OPENAI_MODEL=gpt-4o-mini
+```
+
+Puis lancer :
+
+```powershell
+docker compose up --build
+```
+
+Le `docker-compose.yml` transmet ensuite `OPENAI_API_KEY` et `OPENAI_MODEL` au conteneur backend.
+
+Le fichier d'exemple est disponible ici : [.env.example]
+
+### 2. Utiliser l’IA dans l’application
+
+1. Lancer le projet avec Docker.
+2. Créer un compte ou se connecter.
+3. Jouer à une ou plusieurs parties pour enregistrer des scores.
+4. Ouvrir la page `Historique des scores`.
+5. Cliquer sur `Générer mon résumé IA`.
+
+Le résumé affiché contient notamment :
+
+- une vue d’ensemble ;
+- les points forts ;
+- les points à travailler ;
+- un jeu recommandé ;
+- un objectif suivant.
+
+### 3. Si l’IA ne fonctionne pas
+
+Quelques vérifications utiles :
+
+- vérifier que `OPENAI_API_KEY` est bien définie avant le `docker compose up --build` ;
+- relancer les conteneurs après avoir ajouté ou modifié la clé ;
+- vérifier que le compte OpenAI associé à la clé peut appeler l’API ;
+- vérifier que tu as déjà des scores enregistrés, sinon le résumé sera vide.
+
 ## Parcours utilisateur
 
 1. Arriver sur la page d'accueil.
@@ -158,12 +216,6 @@ Accueil
 - pas de mode multijoueur ;
 - pas de classement global ;
 - dépendance à une clé OpenAI pour la fonctionnalité IA.
-
-## Documentation complémentaire
-
-- Document de cadrage : [docs/document-cadrage.md](/C:/Users/julia/OneDrive/Documents/Ecole/Ynov/Matser_2/moulti-game/docs/document-cadrage.md)
-- Architecture : [docs/architecture.md](/C:/Users/julia/OneDrive/Documents/Ecole/Ynov/Matser_2/moulti-game/docs/architecture.md)
-- Intention projet : [docs/intention.md](/C:/Users/julia/OneDrive/Documents/Ecole/Ynov/Matser_2/moulti-game/docs/intention.md)
 
 ## Dépôt
 
