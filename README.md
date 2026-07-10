@@ -1,216 +1,170 @@
-﻿# Document de Cadrage - Moulti Game
+# Moulti Game
 
-- **Module :** Developpement d'application front/back
-- **Rendu :** Document de cadrage
-- **Date limite :** `24/04/2026`
+Moulti Game est une application web fullstack qui regroupe plusieurs mini-jeux dans une même interface. Le projet permet à un utilisateur de créer un compte, jouer, enregistrer ses scores, consulter son historique et obtenir un résumé intelligent de ses performances grâce à une fonctionnalité IA.
 
-## Liens depots GitHub
+## Aperçu
 
-- **Repository principal :** (`https://github.com/Angelina974/moulti-game`)
+Mini-jeux actuellement disponibles :
 
----
+- Snake
+- Simon
+- Pendu
+- Devine Nombre
+- Puissance 4
 
-## 1) Brief Projet
+Fonctionnalités principales :
 
-### 1.1 Presentation generale
+- inscription et connexion utilisateur ;
+- authentification par JWT ;
+- enregistrement des scores en base PostgreSQL ;
+- historique des parties avec filtrage par jeu ;
+- suppression de l'historique global ou ciblé ;
+- résumé IA des performances à partir des scores du joueur.
 
-- **Nom du projet :** Moulti Game
-- **Description courte :**
-  Moulti Game est une application web de mini-jeux (Snake, Simon, Pendu, Devine Nombre, Puissance 4) avec authentification utilisateur. Chaque joueur peut se connecter, jouer, enregistrer ses scores et consulter son historique par jeu. Une fonctionnalite IA genere un resume intelligent des performances pour orienter la progression. L'application cible un usage simple, rapide et ludique depuis navigateur.
-- **Probleme resolu :**
-  Les mini-jeux web sont souvent disperses, sans suivi personnel ni retour intelligent sur la progression. Le projet centralise plusieurs jeux dans une meme interface avec historique de scores et recommandations de progression.
-- **Public cible :**
-  Etudiants / joueurs occasionnels souhaitant jouer rapidement et suivre leur evolution.
+## Stack technique
 
-### 1.2 Arborescence (Arbo)
+- Frontend : HTML, CSS, JavaScript vanilla
+- Backend : Node.js, Express
+- Base de données : PostgreSQL
+- Authentification : JWT
+- IA : OpenAI `gpt-4o-mini` par défaut
+- Exécution locale : Docker Compose
 
-```text
-Accueil (/)
-├── Connexion (/pages/auth/login.html)
-├── Inscription (/pages/auth/register.html)
-├── Menu jeux (/pages/welcome.html)
-│   ├── Devine Nombre
-│   ├── Pendu
-│   ├── Puissance 4
-│   ├── Simon
-│   └── Snake
-└── Historique des scores (/pages/scores/history.html)
-    ├── Filtre par jeu
-    ├── Resume intelligent IA
-    └── Suppression de l'historique (global / par jeu)
-```
-
-
-### 1.4 Liste des fonctionnalites (Features)
-
-| Priorite | Fonctionnalite | Description courte | Role concerne |
-|----------|----------------|--------------------|---------------|
-| 🔴 Must have | Inscription / Connexion | Creer un compte et s'authentifier | Tous |
-| 🔴 Must have | JWT + routes protegees | Protection des API et pages sensibles | Tous |
-| 🔴 Must have | Jouer aux mini-jeux | Lancer une partie depuis le menu | Joueur |
-| 🔴 Must have | Enregistrement des scores | Sauvegarder le score en base PostgreSQL | Joueur |
-| 🔴 Must have | Historique des scores | Voir les scores passes (filtre par jeu) | Joueur |
-| 🔴 Must have | Resume intelligent IA | Synthese personnalisee des performances | Joueur |
-| 🟡 Should have | Suppression historique | Supprimer scores globaux ou par jeu | Joueur |
-| 🟡 Should have | Docker compose dev | Lancer backend + DB facilement | Dev |
-| 🟢 Nice to have | Export CSV historique | Export des performances | Joueur |
-| 🟢 Nice to have | Classement global | Comparaison entre joueurs | Joueur |
-
----
-
-## 2) Modelisation de la base de donnees
-
-### 2.1 MCD (Modele Conceptuel de Donnees)
-
-**Entites :**
-- **Player** : id, username, email, password_hash, created_at
-- **PlayerScore** : id, game_name, score_value, metadata, played_at
-
-**Associations :**
-- Un **Player** peut avoir **0..N** scores
-- Un **PlayerScore** appartient a **1..1** Player
-
-**Cardinalites :**
-- Player (1,1) ---- (0,N) PlayerScore
-
-### 2.2 MLD (Modele Logique de Donnees)
+## Architecture du projet
 
 ```text
-player (
-  _id_,
-  username,
-  email,
-  password_hash,
-  created_at
-)
-
-player_score (
-  _id_,
-  #player_id,
-  game_name,
-  score_value,
-  metadata,
-  played_at
-)
+frontend/   Interface utilisateur, pages et logique des mini-jeux
+backend/    API REST, authentification, services metier
+database/   Schema SQL et seed
+docs/       Documentation projet
 ```
 
-### 2.3 MPD (Modele Physique de Donnees)
+Le frontend appelle le backend via des requêtes HTTP. Le backend gère l'authentification, les scores, l'accès à PostgreSQL et l'appel à l'API OpenAI pour la synthèse des performances.
 
-```sql
-CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+## Lancer le projet
 
-CREATE TABLE IF NOT EXISTS players (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    username VARCHAR(50) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    password_hash TEXT NOT NULL,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
+### Prérequis
 
-CREATE TABLE IF NOT EXISTS player_scores (
-    id BIGSERIAL PRIMARY KEY,
-    player_id UUID NOT NULL REFERENCES players(id) ON DELETE CASCADE,
-    game_name VARCHAR(100) NOT NULL,
-    score_value INTEGER NOT NULL,
-    metadata JSONB,
-    played_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
+- Docker
+- Docker Compose
 
-CREATE INDEX IF NOT EXISTS idx_players_email ON players (email);
-CREATE INDEX IF NOT EXISTS idx_scores_player_game ON player_scores (player_id, game_name, played_at DESC);
-```
+### Démarrage
 
----
-
-## 3) Definition de la Stack Technique
-
-### 3.1 Frontend
-
-| Element | Choix | Justification |
-|---------|-------|---------------|
-| Framework / Bibliotheque | HTML/CSS/JS vanilla | Scope maitrise, rapide a mettre en place pour plusieurs mini-jeux |
-| Langage | JavaScript | Compatible browser natif, simple pour gameplay + API calls |
-| UI / CSS | CSS custom | Controle total du style arcade et des pages de jeux |
-| Routage | Routage par pages statiques | Suffisant pour un MVP multi-pages sans complexite SPA |
-
-### 3.2 Backend
-
-| Element | Choix | Justification |
-|---------|-------|---------------|
-| Runtime / Framework | Node.js + Express | Rapide pour API REST, middleware simple (auth, JSON, static) |
-| Langage | JavaScript | Coherence fullstack avec le frontend |
-| Authentification | JWT | Stateless, adapte a API protegee par token Bearer |
-| ORM / Requetes | SQL via `pg` | Controle SQL fin, peu de surcouche pour ce scope |
-
-### 3.3 Base de donnees
-
-| Element | Choix | Justification |
-|---------|-------|---------------|
-| SGBD | PostgreSQL | Fiable, SQL robuste, JSONB pour metadata de score |
-| Hebergement | Conteneur Docker local (dev) | Reproductible, simple a lancer avec backend |
-
-### 3.4 Outils & infrastructure
-
-| Element | Choix |
-|---------|-------|
-| Versioning | Git + GitHub |
-| Deploiement | Docker Compose (environnement local) |
-| Gestion de projet | README + Git commits (possible extension Trello/Notion) |
-
----
-
-## 4) Fonctionnalite IA
-
-### 4.1 Description de la fonctionnalite
-
-- **Fonctionnalite IA integree :** Resume intelligent des performances joueur
-- **Probleme resolu :** Le joueur ne sait pas facilement sur quel jeu il progresse ou regresse
-- **Moment UX :** Depuis la page historique des scores, bouton **"Generer mon resume IA"**
-
-### 4.2 Choix technique
-
-- **Modele utilise :** OpenAI `gpt-4o-mini` (configurable via `OPENAI_MODEL`)
-- **Integration architecture :**
-  - Appel IA cote **backend** (route protegee)
-  - Endpoint : `GET /api/insights/performance-summary`
-- **Entree envoyee au modele :**
-  - Statistiques agregees des scores (`sessions`, `moyenne`, `best`, `trend`, etc.)
-- **Sortie attendue :**
-  - JSON structure : `overview`, `strengths[]`, `focusPoints[]`, `recommendedGame`, `recommendationReason`, `nextGoal`
-
-### 4.3 Type de fonctionnalite IA (categorie)
-
-- ✅ **Analyse de donnees / prediction**
-- ✅ **Resume intelligent (generation de contenu texte)**
-- ✅ Fonctionnalite **reellement implementee** dans le code
-
----
-
-## Annexes techniques (execution)
-
-### Docker (dev)
+Depuis la racine du projet :
 
 ```powershell
 docker compose up --build
 ```
 
-### Variables d'environnement utiles
+Une fois les conteneurs lancés :
 
-```powershell
-$env:OPENAI_API_KEY="sk-..."
-$env:OPENAI_MODEL="gpt-4o-mini"
+- application : `http://localhost:3000`
+- vérification backend : `http://localhost:3000/health`
+
+## Variables d’environnement
+
+Le `docker-compose.yml` prévoit déjà les variables principales du backend.
+
+Variables utiles :
+
+```env
+PORT=3000
+DATABASE_URL=postgresql://postgres:postgres@db:5432/moulti_game
+JWT_SECRET=change-me-in-production
+JWT_EXPIRES_IN=2h
+PGSSL=false
+OPENAI_API_KEY=
+OPENAI_MODEL=gpt-4o-mini
 ```
 
-### Endpoints principaux
+La fonctionnalité IA nécessite une clé OpenAI valide dans `OPENAI_API_KEY`.
+
+## Parcours utilisateur
+
+1. Arriver sur la page d'accueil.
+2. Créer un compte ou se connecter.
+3. Accéder au menu principal.
+4. Choisir un mini-jeu.
+5. Jouer dans le navigateur.
+6. Enregistrer le score en base.
+7. Consulter l'historique des scores.
+8. Générer un résumé IA des performances.
+
+## API principale
+
+### Authentification
 
 - `POST /api/auth/register`
 - `POST /api/auth/login`
 - `GET /api/auth/me`
+
+### Scores
+
 - `POST /api/scores`
 - `GET /api/scores/games`
 - `GET /api/scores/history`
 - `DELETE /api/scores/history`
+
+### IA
+
 - `GET /api/insights/performance-summary`
 
----
+### Santé du service
 
+- `GET /health`
+
+## Fonctionnalité IA
+
+Le projet intègre une fonctionnalité IA réellement implémentée côté backend. À partir de l'historique des scores du joueur, le serveur calcule plusieurs statistiques, puis envoie un prompt à l'API OpenAI pour générer une synthèse exploitable par le frontend.
+
+La réponse contient notamment :
+
+- `overview`
+- `strengths`
+- `focusPoints`
+- `recommendedGame`
+- `recommendationReason`
+- `nextGoal`
+
+Cette fonctionnalité permet d'aller au-delà d'un simple affichage de scores en proposant un retour personnalisé sur la progression du joueur.
+
+## Base de données
+
+Le projet repose sur deux tables principales :
+
+- `players`
+- `player_scores`
+
+Le schema SQL est disponible dans [database/schema.sql](/C:/Users/julia/OneDrive/Documents/Ecole/Ynov/Matser_2/moulti-game/database/schema.sql).
+
+## Structure fonctionnelle
+
+```text
+Accueil
+|- Connexion
+|- Inscription
+`- Menu joueur
+   |- Snake
+   |- Simon
+   |- Pendu
+   |- Devine Nombre
+   |- Puissance 4
+   `- Historique des scores
+```
+
+## Limites actuelles
+
+- pas de déploiement en production ;
+- pas de mode multijoueur ;
+- pas de classement global ;
+- dépendance à une clé OpenAI pour la fonctionnalité IA.
+
+## Documentation complémentaire
+
+- Document de cadrage : [docs/document-cadrage.md](/C:/Users/julia/OneDrive/Documents/Ecole/Ynov/Matser_2/moulti-game/docs/document-cadrage.md)
+- Architecture : [docs/architecture.md](/C:/Users/julia/OneDrive/Documents/Ecole/Ynov/Matser_2/moulti-game/docs/architecture.md)
+- Intention projet : [docs/intention.md](/C:/Users/julia/OneDrive/Documents/Ecole/Ynov/Matser_2/moulti-game/docs/intention.md)
+
+## Dépôt
+
+Dépôt GitHub : `https://github.com/Angelina974/moulti-game`
